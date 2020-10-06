@@ -7,8 +7,20 @@
     <groupId>com.company</groupId>
     <artifactId>Automation-course-Sivayeva</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+
     <packaging>jar</packaging>
 
+    <description>Homework</description>
+
+    <developers>
+        <developer>
+            <name>Olga Sivayeva</name>
+            <roles>
+                <role>Owner</role>
+            </roles>
+        </developer>
+    </developers>
 
     <build>
         <plugins>

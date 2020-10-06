@@ -2,7 +2,8 @@ package com.company.homework.hw01;
 
 public class Temperature {
     public static void main(String args[]){
-        double degreesC = 100.0; // градусы цельсія
+
+        double degreesC = Double.parseDouble(args[0]); // градусы цельсія
         // Цельсий х 1,8 + 32 = Фаренгейт
         //Celsius = 5/9 (F - 32) Kelvin = C + 273.16
         double resultF = degreesC * 9.0/5 + 32; // цельсія в фаренгейта
