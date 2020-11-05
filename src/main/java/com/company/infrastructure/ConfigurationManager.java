@@ -6,7 +6,7 @@ public class ConfigurationManager {
     private ConfigurationManager() {
     }
 
-    public ConfigurationManager getInstance(){
+    static public ConfigurationManager getInstance(){
         if (instance == null){
             instance = new ConfigurationManager();
         }
