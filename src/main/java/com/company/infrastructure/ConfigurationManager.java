@@ -1,12 +1,16 @@
 package com.company.infrastructure;
 
 public class ConfigurationManager {
+    static private ConfigurationManager instance = null;
 
     private ConfigurationManager() {
     }
 
     public ConfigurationManager getInstance(){
-        return null;
+        if (instance == null){
+            instance = new ConfigurationManager();
+        }
+        return instance;
     }
     public String getTestBrowser(){
         return getEnvironmentVariableOrDefault("testBrowser", "Firefox");
