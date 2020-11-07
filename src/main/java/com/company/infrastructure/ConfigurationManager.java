@@ -13,7 +13,7 @@ public class ConfigurationManager {
         return instance;
     }
     public String getTestBrowser(){
-        return getEnvironmentVariableOrDefault("testBrowser", "Firefox");
+        return getEnvironmentVariableOrDefault("testBrowser", "firefox");
     }
     public String getTestEnv(){
         return getEnvironmentVariableOrDefault("testEnv", "");
