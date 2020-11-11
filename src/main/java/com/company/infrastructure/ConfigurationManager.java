@@ -18,6 +18,11 @@ public class ConfigurationManager {
     public String getTestEnv(){
         return getEnvironmentVariableOrDefault("testEnv", "");
     }
+
+    public String getTestLogger(){
+        return getEnvironmentVariableOrDefault("testLogger","std");
+    }
+
     private String getEnvironmentVariableOrDefault(String envVar, String defaultValue){
         return (System.getenv(envVar) != null && !System.getenv(envVar).isBlank()) ?
                 System.getenv(envVar) :
