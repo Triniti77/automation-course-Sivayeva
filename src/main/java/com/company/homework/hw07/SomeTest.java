@@ -1,12 +1,12 @@
 package com.company.homework.hw07;
 
-import com.company.infrastructure.TestLogger;
+import com.company.infrastructure.logger.StdTestLogger;
 
 public class SomeTest {
 
     public static void main(String[] args) {
 
-        TestLogger logger = new TestLogger();
+        StdTestLogger logger = new StdTestLogger();
 
         logger.log("Start browser");
         logger.log("Open website");
