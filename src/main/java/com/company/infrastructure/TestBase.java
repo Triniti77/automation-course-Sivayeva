@@ -3,10 +3,11 @@ package com.company.infrastructure;
 import com.company.infrastructure.logger.FileTestLogger;
 import com.company.infrastructure.logger.StdTestLogger;
 import com.company.infrastructure.logger.TestLogger;
+import com.company.infrastructure.webdriver.DefaultWebDriverManager;
 
 public abstract class TestBase {
 
-    private WebDriverManager wdm;
+    private DefaultWebDriverManager wdm;
     protected String browser;
     protected TestLogger logger;
 
@@ -15,8 +16,8 @@ public abstract class TestBase {
         logger = getLogger();
 
         logger.log("Open browser");
-        wdm = new WebDriverManager();
-        browser = wdm.createBrowser();
+        wdm = new DefaultWebDriverManager();
+        browser = wdm.getBrowser();
 
         logger.log("Open rozetka site");
 
@@ -28,7 +29,7 @@ public abstract class TestBase {
         afterTest();
 
         logger.log("Closing browser");
-        wdm.closeBrowser(browser);
+        wdm.destroyBrowser(browser);
         logger.log("");
     }
 
