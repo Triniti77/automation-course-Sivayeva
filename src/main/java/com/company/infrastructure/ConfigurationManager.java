@@ -29,5 +29,9 @@ public class ConfigurationManager {
                 defaultValue;
     }
 
+    public String getRunOn(){
+        return getEnvironmentVariableOrDefault("runOn", "local");
+    }
+
 }
 
