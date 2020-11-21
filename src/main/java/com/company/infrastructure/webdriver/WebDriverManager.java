@@ -5,6 +5,10 @@ package com.company.infrastructure.webdriver;
         // 6) метод getBrowser должен вернуть браузер на основе enVar runOn (значения: local, remote, cloud)
         // 7) Заменить старый WebDriverManager на новый
 
+        public enum RunOn{
+            LOCAL, REMOTE, CLOUD
+        }
+
         public String getBrowser();
 
         public void destroyBrowser(String browser);

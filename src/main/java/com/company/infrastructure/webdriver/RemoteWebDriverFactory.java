@@ -5,12 +5,17 @@ import com.company.infrastructure.ConfigurationManager;
 public class RemoteWebDriverFactory implements WebDriverFactory{
     @Override
     public String create() {
-        switch (ConfigurationManager.getInstance().getTestBrowser()){
-            case "chrome":
+        BrowserType browserType = BrowserType.valueOf(ConfigurationManager.getInstance().getTestBrowser().toUpperCase());
+
+        switch (browserType){
+            case CHROME:
                 return "Google Chrome"; // return new ChromeDriver();
-            case "firefox":
+            case FIREFOX:
                 return "Mozilla Firefox"; // return new FirefoxDriver();
+            case INTERNET_EXPLORER:
+                return "Internet Explorer"; // return new FirefoxDriver();
+
         }
-        return "Internet Explorer";
+        return "Error";
     }
 }
