@@ -1,80 +1,80 @@
 package com.company.infrastructure;
 
 public class TestUrl {
+    private String protocol = "http" ;
+    private String domain = "localhost";
+    private String port = "80";
+    private String path = "/";
+    private String param  = "";
+
+
+
+    public String getProtocol() {
+        return protocol;
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public String getPort() {
+        return port;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public String getParam() {
+        return param;
+    }
 
     public static class Builder {
-        String protocol = "http" ;
-        String domain = "localhost";
-        String port = "80";
-        String path = "/";
-        Element [] param  = null;
-        int paramNum = 0;
 
-        private static class Element{
-            public String key;
-            public String value;
-
-            public Element(String key, String value) {
-                this.key = key;
-                this.value = value;
-            }
-        }
+        private TestUrl url;
 
         public Builder() {
-            this.param = new Element[50];
+            this.url = new TestUrl();
         }
 
         public Builder withProtocol(String protocol){
-            this.protocol = protocol.toLowerCase();
+            this.url.protocol = protocol.toLowerCase();
             return this;
         }
 
         public Builder withDomain(String domain){
-            this.domain = domain.toLowerCase();
+            this.url.domain = domain.toLowerCase();
             return this;
         }
 
         public Builder withPort(String port){
-            this.port = port;
+            this.url.port = port;
             return this;
         }
 
         public Builder withPath(String path){
-            this.path = path;
+            this.url.path = path;
             return this;
         }
 
         public Builder withParam(String key){
-            this.param[paramNum] = new Element(key, "");
-            paramNum++;
+            this.url.param += this.url.param.length() == 0? key: "&" + key;
             return this;
         }
 
         public Builder withParam(String key, String value){
-            this.param[paramNum] = new Element(key, value);
-            paramNum++;
+            this.url.param += this.url.param.length() == 0? key: "&" + key + "=" + value;
             return this;
         }
 
         public String build(){
-            String result = protocol + "://" + domain;
-            if (!(protocol.equals("http") && port.equals("80")) && !(protocol.equals("https") && port.equals("443"))) {
-                result += ":" + port;
+            String result = this.url.protocol + "://" + this.url.domain;
+            if (!(this.url.protocol.equals("http") && this.url.port.equals("80")) && !(this.url.protocol.equals("https") && this.url.port.equals("443"))) {
+                result += ":" + this.url.port;
             }
-            result += path;
-            if (paramNum > 0) {
-                result += "?";
-            }
-            for (int i=0; i < paramNum; i++) {
-                if (i > 0) {
-                    result += "&";
-                }
-                Element elem = param[i];
-                if (elem.value.equals("")) {
-                    result += elem.key;
-                } else {
-                    result += elem.key + "=" + elem.value;
-                }
+            result += this.url.path;
+            if (this.url.param.length() > 0) {
+                result += "?" + url.param;
             }
             return result;
         }
