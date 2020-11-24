@@ -7,18 +7,25 @@ public class DefaultWebDriverManager implements WebDriverManager {
 
     @Override
     public String getBrowser() {
-        WebDriverFactory wdf;
-        switch (ConfigurationManager.getInstance().getRunOn()){
-            case "remote":
+        WebDriverFactory wdf = null;
+//        public String create() {
+//        BrowserType browserType = BrowserType.valueOf(ConfigurationManager.getInstance().getTestBrowser());
+//
+//        switch (browserType)
+        RunOn runOn = RunOn.valueOf(ConfigurationManager.getInstance().getRunOn().toUpperCase().toUpperCase());
+    //
+        switch (runOn){
+            case LOCAL:
+                wdf = new LocalWebDriverFactory();
+                break;
+            case REMOTE:
                 wdf = new RemoteWebDriverFactory();
                 break;
-            case "cloud":
+            case CLOUD:
                 wdf = new CloudWebDriverFactory();
                 break;
-            default:
-                wdf = new LocalWebDriverFactory();
         }
-        return wdf.create();
+        return wdf == null? "" : wdf.create() ;
     }
 
     @Override
