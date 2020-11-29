@@ -23,6 +23,10 @@ public class ConfigurationManager {
         return getEnvironmentVariableOrDefault("testLogger","std");
     }
 
+    public String getTestDataSource() {
+        return getEnvironmentVariableOrDefault("testDataSource", "file");
+    }
+
     private String getEnvironmentVariableOrDefault(String envVar, String defaultValue){
         return (System.getenv(envVar) != null && !System.getenv(envVar).isBlank()) ?
                 System.getenv(envVar) :
