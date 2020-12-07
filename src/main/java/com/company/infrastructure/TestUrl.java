@@ -1,13 +1,17 @@
 package com.company.infrastructure;
 
+import java.util.*;
+
 public class TestUrl {
     private String protocol = "http" ;
     private String domain = "localhost";
     private String port = "80";
     private String path = "/";
-    private String param  = "";
+    private Map<String, List<String>> param;
 
-
+    public TestUrl() {
+        this.param = new LinkedHashMap<>();
+    }
 
     public String getProtocol() {
         return protocol;
@@ -25,7 +29,7 @@ public class TestUrl {
         return path;
     }
 
-    public String getParam() {
+    public Map<String, List<String>> getParam() {
         return param;
     }
 
@@ -58,12 +62,16 @@ public class TestUrl {
         }
 
         public Builder withParam(String key){
-            this.url.param += this.url.param.length() == 0? key: "&" + key;
+            this.withParam(key, null);
             return this;
         }
 
         public Builder withParam(String key, String value){
-            this.url.param += this.url.param.length() == 0? key: "&" + key + "=" + value;
+            if (!this.url.param.containsKey(key)) {
+                this.url.param.put(key, new ArrayList<>());
+            }
+            List<String> values = this.url.param.get(key);
+            values.add(value);
             return this;
         }
 
@@ -72,12 +80,30 @@ public class TestUrl {
             if (!(this.url.protocol.equals("http") && this.url.port.equals("80")) && !(this.url.protocol.equals("https") && this.url.port.equals("443"))) {
                 result += ":" + this.url.port;
             }
-            result += this.url.path;
-            if (this.url.param.length() > 0) {
-                result += "?" + url.param;
+            result += this.url.path != null && !this.url.path.isEmpty() ? this.url.path : "/";
+            if (this.url.param.size() > 0) {
+                result += "?";
+                String amp = "";
+                for (Map.Entry<String, List<String>> item : this.url.param.entrySet()) {
+                    List<String> values = item.getValue();
+                    String key = item.getKey();
+                    if (values.size() == 1) {
+                        String value = values.get(0);
+                        result += amp + (value != null ? key + "=" + value : key);
+                    } else {
+                        for (String value : values) {
+                            result += amp + (key + "=" + (value != null ? value : "null"));
+                            if (amp.isEmpty()) {
+                                amp = "&";
+                            }
+                        }
+                    }
+                    if (amp.isEmpty()) {
+                        amp = "&";
+                    }
+                }
             }
             return result;
         }
-
     }
 }
